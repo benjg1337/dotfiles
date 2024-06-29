@@ -17,7 +17,7 @@ WINIT_WAYLAND_SCALE_FACTOR = "1.0"
 
 #changes cursor style
 [cursor]
-style = { shape = "block", blinking = "on" }
+style = { shape = "block", blinking = "always" }
 blink_interval = 600
 
 #number of lines for scrollback
