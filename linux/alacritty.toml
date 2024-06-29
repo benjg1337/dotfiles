@@ -1,0 +1,72 @@
+# Alacritty confi
+# This file should be saved as alacritty.toml or appended to your existing configuration file.
+
+#sets the default shell
+[shell]
+program = "/bin/zsh"
+args = ["-l"]
+
+#removes top bar from windows
+[window]
+decorations = "none"
+dynamic_title = true
+
+#setting enviroment variable 
+[env]
+WINIT_WAYLAND_SCALE_FACTOR = "1.0"
+
+#changes cursor style
+[cursor]
+style = { shape = "block", blinking = "on" }
+blink_interval = 600
+
+#number of lines for scrollback
+[scrolling]
+history = 500
+
+#allowing clipboard terminal access
+[terminal]
+osc52 = "CopyPaste"
+
+#mouse settings
+[mouse]
+hide_when_typing = true
+
+#setting fonts
+[font]
+normal = { family = "JetBrains Mono" }
+bold = { family = "JetBrains Mono" }
+italic = { family = "JetBrains Mono" }
+bold_italic = { family = "JetBrains Mono" }
+size = 11
+
+#colour profile
+[colors.primary]
+background = "#1b182c"
+foreground = "#cbe3e7"
+
+[colors.normal]
+black   = "#100e23"
+red     = "#ff8080"
+green   = "#95ffa4"
+yellow  = "#ffe9aa"
+blue    = "#91ddff"
+magenta = "#c991e1"
+cyan    = "#aaffe4"
+white   = "#cbe3e7"
+
+[colors.bright]
+black   = "#565575"
+red     = "#ff5458"
+green   = "#62d196"
+yellow  = "#ffb378"
+blue    = "#65b2ff"
+magenta = "#906cff"
+cyan    = "#63f2f1"
+
+
+
+
+
+
+
