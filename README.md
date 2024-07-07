@@ -1,2 +1,2 @@
 # dotfiles
-dotfiles for various programs such as zsh, yabai, i3, skhd, nvim etc. 
+dotfiles for various programs such as zsh, yabai, sway, skhd, newsboat, waybar, nvim etc. 
