@@ -1,44 +1,55 @@
 #!/bin/bash
 
-# Function to display a menu of WiFi networks
-display_menu() {
-    echo "Available WiFi Networks:"
-    for i in "${!networks[@]}"; do
-        echo "$((i+1)). ${networks[$i]}"
-    done
+# Function to display available WiFi networks and prompt for selection
+select_wifi() {
+    echo "Available WiFi networks:"
+    nmcli device wifi list | awk 'NR>1 {print NR-1, $1, $3}' | column -t
+    echo
+    read -p "Enter the number of the WiFi network you want to connect to: " choice
+
+    # Validate user input
+    if ! [[ "$choice" =~ ^[0-9]+$ ]]; then
+        echo "Error: Please enter a valid number."
+        exit 1
+    fi
+
+    # Get the SSID and security type from user choice
+    SSID=$(nmcli device wifi list | awk 'NR=='$((choice+1))' {print $1}')
+    SECURITY=$(nmcli device wifi list | awk 'NR=='$((choice+1))' {print $3}')
+
+    if [ -z "$SSID" ]; then
+        echo "Error: Invalid selection."
+        exit 1
+    fi
+
+    # Prompt for password if the network is secured
+    if [ "$SECURITY" == "none" ]; then
+        nmcli device wifi connect "$SSID"
+    else
+        read -s -p "Enter the password for '$SSID': " password
+        echo
+        nmcli device wifi connect "$SSID" password "$password"
+    fi
 }
 
-# Scan for available WiFi networks
-mapfile -t networks < <(nmcli -t -f SSID dev wifi | grep -v '^$' | uniq)
-
-if [ ${#networks[@]} -eq 0 ]; then
-    echo "No WiFi networks found."
-    exit 1
-fi
-
-# Display the menu of WiFi networks
-display_menu
-
-# Prompt the user to select a network
-read -p "Select a network (1-${#networks[@]}): " choice
-
-if [[ $choice -lt 1 || $choice -gt ${#networks[@]} ]]; then
-    echo "Invalid selection."
-    exit 1
-fi
-
-selected_network=${networks[$((choice-1))]}
-
-# Prompt the user to enter the WiFi password
-read -s -p "Enter password for $selected_network: " password
+# Main script execution starts here
+echo "Connecting to WiFi using nmcli..."
 echo
 
-# Connect to the selected network
-nmcli dev wifi connect "$selected_network" password "$password"
-
-# Check if the connection was successful
-if [ $? -eq 0 ]; then
-    echo "Successfully connected to $selected_network"
-else
-    echo "Failed to connect to $selected_network"
+# Check if nmcli is installed
+if ! command -v nmcli &> /dev/null; then
+    echo "Error: nmcli is not installed. Please install NetworkManager."
+    exit 1
 fi
+
+# Ensure network manager service is running
+if ! systemctl is-active --quiet NetworkManager; then
+    echo "Starting NetworkManager service..."
+    sudo systemctl start NetworkManager
+fi
+
+# Select and connect to WiFi
+select_wifi
+
+echo
+echo "WiFi connection attempt complete."
