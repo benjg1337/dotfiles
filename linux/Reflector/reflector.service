@@ -1,0 +1,6 @@
+[Unit]
+Description=Update Pacman mirrorlist using reflector
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/reflector -c 'United Kingdom' --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
