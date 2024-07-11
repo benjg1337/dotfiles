@@ -46,11 +46,15 @@ source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 #Setting history file
-SAVEHIST=100
-HISTSIZE=100
+SAVEHIST=1000
+HISTSIZE=1000
+HISTFILE=~/.zsh_history
+setopt appendhistory
 
-# Aliases
+# Function to search and execute commands from history using fzf
+source <(fzf --zsh)
+
+#aliases
 alias cat='bat'
 alias ls='lsd'
-alias wifi='nmcli device wifi connect'
 alias news='newsboat -r'
