@@ -59,4 +59,4 @@ source <(fzf --zsh)
 alias cat='bat'
 alias ls='lsd'
 alias news='newsboat -r'
-alias lock='swaylock -i ~/Documents/wallpapers/wallpaper.jpg'
+alias lock='swaylock -i ~/Documents/wallpapers/blurpaper.png'
