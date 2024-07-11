@@ -23,7 +23,7 @@ ZSH_THEME="robbyrussell"
  ENABLE_CORRECTION="true"
 
 # Which plugins would you like to load? found in $ZSH/custom
-plugins=(git)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting dirhistory archlinux)
 
 #Source 
 source $ZSH/oh-my-zsh.sh
@@ -52,6 +52,7 @@ HISTFILE=~/.zsh_history
 setopt appendhistory
 
 # Function to search and execute commands from history using fzf
+# ctrl+r history, ctlr+t search current dir & alt+c search for dir
 source <(fzf --zsh)
 
 #aliases
