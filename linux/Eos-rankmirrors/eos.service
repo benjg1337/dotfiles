@@ -1,1 +1,6 @@
+[Unit]
+Description=Update Endeavour mirrorlist using reflector
 
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/eos-rankmirrors
