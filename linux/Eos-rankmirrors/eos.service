@@ -1,5 +1,5 @@
 [Unit]
-Description=Update Endeavour mirrorlist using reflector
+Description=Update Endeavour mirrorlist using eos-rankmirrors
 
 [Service]
 Type=oneshot
